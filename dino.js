@@ -10,7 +10,7 @@ const GRAVITY = 0.0015
 const DINO_FRAME_COUNT = 2
 const FRAME_TIME = 100
 
-// 1. Prepare the jump sound (it will look for jump.mp3 in your folder)
+// 1. Initialize the jump sound
 const jumpSound = new Audio("jump.mp3")
 
 let isJumping
@@ -60,7 +60,8 @@ function handleJump(delta) {
 
   incrementCustomProperty(dinoElem, "--bottom", yVelocity * delta)
 
-  if (getCustomProperty(dinoElem, "--bottom") <= 0) {
+  // FIX: Using 0.1 instead of 0 makes repeated jumping much more responsive
+  if (getCustomProperty(dinoElem, "--bottom") <= 0.1) {
     setCustomProperty(dinoElem, "--bottom", 0)
     isJumping = false
   }
@@ -69,11 +70,11 @@ function handleJump(delta) {
 }
 
 function onJump(e) {
-  // 2. Added check for ArrowUp or Space
+  // Added support for ArrowUp
   if ((e.code !== "Space" && e.code !== "ArrowUp") || isJumping) return
 
-  // 3. Play the sound
-  jumpSound.play()
+  // Play jump sound (will work once file is uploaded)
+  jumpSound.play().catch(() => {}) 
   
   yVelocity = JUMP_SPEED
   isJumping = true
