@@ -10,10 +10,14 @@ const GRAVITY = 0.0015
 const DINO_FRAME_COUNT = 2
 const FRAME_TIME = 100
 
+// 1. Prepare the jump sound (it will look for jump.mp3 in your folder)
+const jumpSound = new Audio("jump.mp3")
+
 let isJumping
 let dinoFrame
 let currentFrameTime
 let yVelocity
+
 export function setupDino() {
   isJumping = false
   dinoFrame = 0
@@ -65,8 +69,12 @@ function handleJump(delta) {
 }
 
 function onJump(e) {
-  if (e.code !== "Space" || isJumping) return
+  // 2. Added check for ArrowUp or Space
+  if ((e.code !== "Space" && e.code !== "ArrowUp") || isJumping) return
 
+  // 3. Play the sound
+  jumpSound.play()
+  
   yVelocity = JUMP_SPEED
   isJumping = true
 }
