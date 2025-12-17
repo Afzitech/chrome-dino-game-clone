@@ -45,9 +45,9 @@ function checkLose() {
   const dinoRect = getDinoRect()
   const collision = getCactusRects().some(rect => isCollision(rect, dinoRect))
   
-  // 2. Play the lose sound immediately on collision
+  // 2. Trigger the lose sound the moment a collision happens
   if (collision) {
-    loseSound.play()
+    loseSound.play().catch(() => {}) // Catch prevents errors if file isn't uploaded yet
   }
   
   return collision
@@ -90,9 +90,9 @@ function handleLose() {
   }, 100)
 }
 
+// 3. Optimized scaling to fill the screen better and remove borders
 function setPixelToWorldScale() {
   let worldToPixelScale
-  // This version ignores the strict 100:30 ratio to fill more space
   if (window.innerWidth / window.innerHeight < WORLD_WIDTH / WORLD_HEIGHT) {
     worldToPixelScale = window.innerWidth / WORLD_WIDTH
   } else {
