@@ -84,9 +84,14 @@ function handleStart() {
 }
 
 function handleLose() {
-  setDinoLose()
+ setDinoLose()
   setTimeout(() => {
+    // This allows the player to restart by pressing a key
     document.addEventListener("keydown", handleStart, { once: true })
+    
+    // THIS IS THE MISSING PIECE: This allows the player to restart by tapping
+    document.addEventListener("touchstart", handleStart, { once: true })
+    
     startScreenElem.classList.remove("hide")
   }, 100)
 }
