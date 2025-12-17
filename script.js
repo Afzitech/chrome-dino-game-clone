@@ -10,6 +10,9 @@ const worldElem = document.querySelector("[data-world]")
 const scoreElem = document.querySelector("[data-score]")
 const startScreenElem = document.querySelector("[data-start-screen]")
 
+// 1. Prepare the Game Over sound
+const loseSound = new Audio("lose.mp3")
+
 setPixelToWorldScale()
 window.addEventListener("resize", setPixelToWorldScale)
 document.addEventListener("keydown", handleStart, { once: true })
@@ -17,6 +20,7 @@ document.addEventListener("keydown", handleStart, { once: true })
 let lastTime
 let speedScale
 let score
+
 function update(time) {
   if (lastTime == null) {
     lastTime = time
@@ -30,6 +34,7 @@ function update(time) {
   updateCactus(delta, speedScale)
   updateSpeedScale(delta)
   updateScore(delta)
+  
   if (checkLose()) return handleLose()
 
   lastTime = time
@@ -38,7 +43,14 @@ function update(time) {
 
 function checkLose() {
   const dinoRect = getDinoRect()
-  return getCactusRects().some(rect => isCollision(rect, dinoRect))
+  const collision = getCactusRects().some(rect => isCollision(rect, dinoRect))
+  
+  // 2. Play the lose sound immediately on collision
+  if (collision) {
+    loseSound.play()
+  }
+  
+  return collision
 }
 
 function isCollision(rect1, rect2) {
