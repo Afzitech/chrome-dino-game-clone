@@ -13,9 +13,14 @@ body {
 }
 
 .world {
+  --world-width: 100;
+  --world-height: 30;
   overflow: hidden;
   position: relative;
-  background-color: white; /* White background for the game area */
+  background-color: white;
+  /* This ensures it fills the width but stays within height limits */
+  width: 100vw; 
+  max-height: 100vh;
 }
 
 .score {
