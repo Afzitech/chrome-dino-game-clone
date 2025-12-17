@@ -5,22 +5,22 @@
 
 body {
   margin: 0;
+  background-color: white; /* Match the game background to hide the "seams" */
   display: flex;
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  background-color: #f7f7f7; /* Light grey background for the whole page */
+  overflow: hidden;
 }
 
 .world {
-  --world-width: 100;
-  --world-height: 30;
   overflow: hidden;
   position: relative;
   background-color: white;
-  /* This ensures it fills the width but stays within height limits */
-  width: 100vw; 
-  max-height: 100vh;
+  /* Use 'vmin' so it scales based on the smallest screen dimension */
+  width: 100vw;
+  height: 30vh; /* Adjust this number (e.g., 40vh or 50vh) to make the play area taller */
+  display: block;
 }
 
 .score {
