@@ -24,8 +24,14 @@ export function setupDino() {
   currentFrameTime = 0
   yVelocity = 0
   setCustomProperty(dinoElem, "--bottom", 0)
+  
+  // Remove listeners first to prevent "double-jumping" bugs
   document.removeEventListener("keydown", onJump)
+  document.removeEventListener("touchstart", onJump)
+  
+  // 2. Add listeners for BOTH keyboard and mobile touch
   document.addEventListener("keydown", onJump)
+  document.addEventListener("touchstart", onJump)
 }
 
 export function updateDino(delta, speedScale) {
@@ -70,10 +76,15 @@ function handleJump(delta) {
 }
 
 function onJump(e) {
-  // Added support for ArrowUp
-  if ((e.code !== "Space" && e.code !== "ArrowUp") || isJumping) return
+  // 3. Logic: If it's a keyboard event, check for Space/ArrowUp. 
+  // If it's a touch event, just let it through.
+  if (e.type === "keydown") {
+    if ((e.code !== "Space" && e.code !== "ArrowUp") || isJumping) return
+  } else if (e.type === "touchstart") {
+    if (isJumping) return
+  }
 
-  // Play jump sound (will work once file is uploaded)
+  // Play jump sound
   jumpSound.play().catch(() => {}) 
   
   yVelocity = JUMP_SPEED
