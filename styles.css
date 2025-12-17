@@ -5,7 +5,7 @@
 }
 
 /* 2. Body: Centering the game and hiding borders */
-body {
+html, body {
   margin: 0;
   display: flex;
   justify-content: center;
@@ -13,6 +13,9 @@ body {
   min-height: 100vh;
   background-color: white; /* Makes top/bottom borders invisible */
   overflow: hidden; /* Prevents accidental scrollbars */
+  
+  touch-action: manipulation; /* Removes 300ms tap delay */
+  cursor: pointer;           /* Helps mobile browsers register taps */
 }
 
 /* 3. The World: The game container */
