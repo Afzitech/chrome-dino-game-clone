@@ -16,6 +16,7 @@ const loseSound = new Audio("lose.mp3")
 setPixelToWorldScale()
 window.addEventListener("resize", setPixelToWorldScale)
 document.addEventListener("keydown", handleStart, { once: true })
+document.addEventListener("touchstart", handleStart, { once: true })
 
 let lastTime
 let speedScale
