@@ -16,7 +16,6 @@ body {
   overflow: hidden;
   position: relative;
   background-color: white; /* White background for the game area */
-  border: 2px solid #535353; /* Optional: adds a border around the game world */
 }
 
 .score {
