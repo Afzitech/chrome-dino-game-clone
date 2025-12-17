@@ -1,39 +1,43 @@
+/* 1. Global Reset */
 *, *::before, *::after {
   box-sizing: border-box;
   user-select: none;
 }
 
+/* 2. Body: Centering the game and hiding borders */
 body {
   margin: 0;
-  background-color: white; /* Match the game background to hide the "seams" */
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: center; /* Vertical centering */
   min-height: 100vh;
-  overflow: hidden;
+  background-color: white; /* Makes top/bottom borders invisible */
+  overflow: hidden; /* Prevents accidental scrollbars */
 }
 
+/* 3. The World: The game container */
 .world {
   overflow: hidden;
   position: relative;
   background-color: white;
-  /* Use 'vmin' so it scales based on the smallest screen dimension */
-  width: 100vw;
-  height: 30vh; /* Adjust this number (e.g., 40vh or 50vh) to make the play area taller */
-  display: block;
+  /* Responds to JavaScript scaling logic */
+  max-width: 100vw;
+  max-height: 100vh;
 }
 
+/* 4. Score: Anchored to the screen corner */
 .score {
-  position: absolute;
-  font-size: 3vmin;
-  right: 2vmin;
-  top: 1vmin;
-  z-index: 100; /* Ensures score stays on top of the ground and dino */
-  color: #535353; /* Classic Dino-grey color */
+  position: fixed; 
+  top: 20px;
+  right: 20px;
+  font-size: 5vmin;
   font-family: 'Courier New', Courier, monospace;
+  color: #535353;
+  z-index: 1000; /* Stays on top of everything */
   font-weight: bold;
 }
 
+/* 5. Start Screen: Centered Text */
 .start-screen {
   position: absolute;
   font-size: 5vmin;
@@ -49,25 +53,27 @@ body {
   display: none;
 }
 
+/* 6. Ground: Positioning at the bottom */
 .ground {
   --left: 0;
   position: absolute;
   width: 300%;
   bottom: 0;
   left: calc(var(--left) * 1%);
-  /* Ensure ground is behind the score but above the background */
-  z-index: 5; 
+  z-index: 5;
 }
 
+/* 7. Dino: Adjusting position and size */
 .dino {
   --bottom: 0;
   position: absolute;
-  left: 5%; /* Moved slightly right from the edge */
+  left: 5%;
   height: 30%;
   bottom: calc(var(--bottom) * 1%);
   z-index: 10;
 }
 
+/* 8. Cactus: Standardizing height */
 .cactus {
   position: absolute;
   left: calc(var(--left) * 1%);
