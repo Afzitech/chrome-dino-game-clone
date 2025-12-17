@@ -92,9 +92,11 @@ function handleLose() {
 
 function setPixelToWorldScale() {
   let worldToPixelScale
+  // This logic checks if your window is wider than it is tall
   if (window.innerWidth / window.innerHeight < WORLD_WIDTH / WORLD_HEIGHT) {
     worldToPixelScale = window.innerWidth / WORLD_WIDTH
   } else {
+    // This allows it to scale up more aggressively on desktop
     worldToPixelScale = window.innerHeight / WORLD_HEIGHT
   }
 
